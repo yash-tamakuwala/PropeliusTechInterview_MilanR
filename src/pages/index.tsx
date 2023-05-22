@@ -30,20 +30,29 @@ const ToDo = ({ todo }: { todo: TodoType }) => {
   };
 
   return (
-    <p>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        maxWidth: "500px",
+      }}
+    >
       {!isEditing ? (
         <>
-          {todo.id} : {todo.data}
-          <button onClick={handleRemoveTodo}>Remove</button>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
+          <p>{todo.data}</p>
+
+          <div>
+            <button onClick={handleRemoveTodo}>Remove</button>
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+          </div>
         </>
       ) : (
         <>
-          {todo.id} : <input ref={editInputRef} defaultValue={todo.data} />
+          <input ref={editInputRef} defaultValue={todo.data} />
           <button onClick={handleSaveTodo}>Save</button>
         </>
       )}
-    </p>
+    </div>
   );
 };
 
@@ -64,17 +73,22 @@ const TODOList = () => {
   };
 
   return (
-    <>
-      <input type="text" ref={inputRef} />
-      <button onClick={handleAddTodo}>Add</button>
-      <br />
-      list:
-      {todoList.map((todo) => (
-        <div key={todo.id}>
-          <ToDo todo={todo} />
-        </div>
-      ))}
-    </>
+    <div className="m-5" style={{ width: "500px" }}>
+      <div className="d-flex">
+        <input type="text" ref={inputRef} className="form-control" />
+        <button onClick={handleAddTodo} className="mx-4 btn btn-primary">
+          Add
+        </button>
+      </div>
+
+      <div className="mt-4">
+        {todoList.map((todo) => (
+          <div key={todo.id}>
+            <ToDo todo={todo} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
